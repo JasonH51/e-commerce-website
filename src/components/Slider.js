@@ -44,7 +44,7 @@ const Slide = styled.div`
   align-items: center;
   width: 100vw;
   background-color: ${props => {
-    return props.bg
+    return props.bg;
   }};
 `;
 
@@ -101,7 +101,7 @@ const Slider = () => {
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
         {sliderItems.map(item => (
-          <Slide bg={item.bg}>
+          <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
               <Image src={item.img} />
             </ImgContainer>
