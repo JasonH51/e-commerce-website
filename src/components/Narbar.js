@@ -59,7 +59,7 @@ const Logo = styled.h1`
   font-weight: bold;
 `;
 
-const Narbar = () => {
+const Navbar = () => {
   return (
     <Container>
       <Wrapper>
@@ -87,4 +87,4 @@ const Narbar = () => {
   );
 };
 
-export default Narbar;
+export default Navbar;
