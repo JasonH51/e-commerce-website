@@ -71,7 +71,7 @@ const Narbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>WOJAK APPAREL</Logo>
+          <Logo>WOJAK.</Logo>
         </Center>
         <Right>
           <MenuItem>Register</MenuItem>
