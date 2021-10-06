@@ -5,6 +5,7 @@ import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Narbar';
 import {mobile} from '../responsive';
+import {useSelector} from 'react-redux';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -139,6 +140,8 @@ const Hr = styled.hr`
 `;
 
 const Cart = () => {
+ 
+
   return (
     <Container>
       <Navbar />
