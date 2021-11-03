@@ -45,14 +45,20 @@ const Right = styled.div`
   })}
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled.span`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+
   ${mobile({
     fontSize: '12px',
     marginLeft: '10px'
   })}
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 const Languages = styled.span`
@@ -102,15 +108,19 @@ const Navbar = () => {
           <Logo>WOJAK.</Logo>
         </Center>
         <Right>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Sign In</MenuItem>
-          <Link to="/cart">
+          <StyledLink to="/register">
+            <MenuItem>Register</MenuItem>
+          </StyledLink>
+          <StyledLink to="/login">
+            <MenuItem>Sign In</MenuItem>
+          </StyledLink>
+          <StyledLink to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItem>
-          </Link>
+          </StyledLink>
         </Right>
       </Wrapper>
     </Container>
