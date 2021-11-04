@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useLocation} from 'react-router';
-import {userRequest} from '../requestMethods';
 import styled from 'styled-components';
 
 const Container = styled.div`
