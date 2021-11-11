@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Narbar';
-import {publicRequest} from '../requestMethods';
+import axios from 'axios';
+// import {publicRequest} from '../requestMethods';
 import {mobile} from '../responsive';
 import {useLocation} from 'react-router-dom';
 import {addProduct} from '../redux/cartRedux';
@@ -133,14 +134,26 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get(`/products/find/${id}`);
+        const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
         setProduct(res.data);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.error(err);
       }
     };
     getProduct();
   }, [id]);
+
+  // useEffect(() => {
+  //   const getProduct = async () => {
+  //     try {
+  //       const res = await publicRequest.get(`/products/find/${id}`);
+  //       setProduct(res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getProduct();
+  // }, [id]);
 
   const handleQunatity = type => {
     if (quantity > 1 && type === 'remove') {
@@ -159,11 +172,11 @@ const Product = () => {
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src={product.img} />
+          <Image src={product.image} />
         </ImgContainer>
         <InfoContainer>
           <Title>{product.title}</Title>
-          <Desc>{product.desc}</Desc>
+          <Desc>{product.description}</Desc>
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>

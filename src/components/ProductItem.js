@@ -9,13 +9,18 @@ const Info = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  flex-direction: column;
   transition: all 0.5 ease;
   cursor: pointer;
+  .icons-container {
+    display: flex;
+  }
 `;
 
 const Container = styled.div`
@@ -28,6 +33,7 @@ const Container = styled.div`
   justify-content: center;
   background-color: #f5fbfd;
   position: relative;
+  color: lightgoldenrodyellow;
 
   &:hover ${Info} {
     opacity: 1;
@@ -43,6 +49,7 @@ const Circle = styled.div`
 const Image = styled.img`
   height: 75%;
   z-index: 2;
+  max-width: 280px;
 `;
 
 const Icon = styled.div`
@@ -55,6 +62,7 @@ const Icon = styled.div`
   justify-content: center;
   margin: 10px;
   transition: all 0.5s ease;
+  color: black;
 
   &:hover {
     background-color: #e9f5f5;
@@ -64,22 +72,24 @@ const Icon = styled.div`
 
 const ProductItem = ({item}) => {
   return (
-    <Container>
+    <Container key={item.id}>
       <Circle />
-      <Image src={item.img} />
+      <Image src={item.image} />
       <Info>
-        {item.desc}
-        <Icon>
-          <ShoppingCartOutlined />
-        </Icon>
-        <Icon>
-          <Link to={`/product/${item._id}`}>
-            <SearchOutlined />
-          </Link>
-        </Icon>
-        <Icon>
-          <FavoriteBorderOutlined />
-        </Icon>
+        {item.title}
+        <div className="icons-container">
+          <Icon>
+            <ShoppingCartOutlined />
+          </Icon>
+          <Icon>
+            <Link to={`/product/${item.id}`}>
+              <SearchOutlined />
+            </Link>
+          </Icon>
+          <Icon>
+            <FavoriteBorderOutlined />
+          </Icon>
+        </div>
       </Info>
     </Container>
   );

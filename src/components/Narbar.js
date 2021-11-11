@@ -105,7 +105,9 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>WOJAK.</Logo>
+          <StyledLink to="/">
+            <Logo>WOJAK.</Logo>
+          </StyledLink>
         </Center>
         <Right>
           <StyledLink to="/register">

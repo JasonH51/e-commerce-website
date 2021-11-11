@@ -15,20 +15,43 @@ const Products = ({cat, filters, sort}) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
+    const controller = new AbortController();
+    const {signal} = controller;
+
+    try {
+      const getProducts = async () => {
         const res = await axios.get(
           cat
-            ? `http://localhost:5000/api/products?category=${cat}`
-            : 'http://localhost:5000/api/products'
+            ? `https://fakestoreapi.com/products/category/${cat}`
+            : `https://fakestoreapi.com/products/category/women's clothing`,
+          signal
         );
+
         setProducts(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProducts();
+      };
+      getProducts();
+    } catch (err) {
+      console.error(err);
+    }
+
+    return () => controller.abort();
   }, [cat]);
+
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         cat
+  //           ? `http://localhost:5000/api/products?category=${cat}`
+  //           : 'http://localhost:5000/api/products'
+  //       );
+  //       setProducts(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getProducts();
+  // }, [cat]);
 
   useEffect(() => {
     cat &&
@@ -40,22 +63,30 @@ const Products = ({cat, filters, sort}) => {
   }, [products, cat, filters]);
 
   useEffect(() => {
-    if (sort === 'newest') {
-      setFilteredProducts(prev =>
-        [...prev].sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
-      );
-    } else if (sort === 'asc') {
+    if (sort === 'asc') {
       setFilteredProducts(prev => [...prev].sort((a, b) => a.price - b.price));
     } else if (sort === 'desc') {
       setFilteredProducts(prev => [...prev].sort((a, b) => b.price - a.price));
     }
   }, [sort]);
 
+  // useEffect(() => {
+  //   if (sort === 'newest') {
+  //     setFilteredProducts(prev =>
+  //       [...prev].sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
+  //     );
+  //   } else if (sort === 'asc') {
+  //     setFilteredProducts(prev => [...prev].sort((a, b) => a.price - b.price));
+  //   } else if (sort === 'desc') {
+  //     setFilteredProducts(prev => [...prev].sort((a, b) => b.price - a.price));
+  //   }
+  // }, [sort]);
+
   return (
     <Container>
       {cat
-        ? filteredProducts.map(item => <ProductItem item={item} key={item._id} />)
-        : products.slice(0, 8).map(item => <ProductItem item={item} key={item._id} />)}
+        ? filteredProducts.map(item => <ProductItem item={item} key={item.id} />)
+        : products.slice(0, 8).map(item => <ProductItem item={item} key={item.id} />)}
     </Container>
   );
 };

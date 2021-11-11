@@ -1,14 +1,14 @@
 import {Add, Remove} from '@material-ui/icons';
-import React, {useState, useEffect} from 'react';
+// import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Narbar';
 import {mobile} from '../responsive';
 import {useSelector} from 'react-redux';
-import StripeCheckout from 'react-stripe-checkout';
-import {userRequest} from '../requestMethods';
-import {useHistory} from 'react-router-dom';
+// import StripeCheckout from 'react-stripe-checkout';
+// import {userRequest} from '../requestMethods';
+// import {useHistory} from 'react-router-dom';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -128,13 +128,13 @@ const SummaryItem = styled.div`
 `;
 const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-`;
+// const Button = styled.button`
+//   width: 100%;
+//   padding: 10px;
+//   background-color: black;
+//   color: white;
+//   font-weight: 600;
+// `;
 
 const Hr = styled.hr`
   background-color: #eee;
@@ -142,32 +142,32 @@ const Hr = styled.hr`
   height: 1px;
 `;
 
-const KEY =
-  'pk_test_51JcK6BHQB4NtzLTtJ4TCRS0u1NZ6bVXOQ9lBP0N4yKs1oQu4OZyBO0AZdFgoQOAH5JZly6Z5ecYWACzQ6Q1xw4yE00QgPnTtiR';
+// const KEY =
+//   'pk_test_51JcK6BHQB4NtzLTtJ4TCRS0u1NZ6bVXOQ9lBP0N4yKs1oQu4OZyBO0AZdFgoQOAH5JZly6Z5ecYWACzQ6Q1xw4yE00QgPnTtiR';
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
-  const [stripeToken, setStripeToken] = useState(null);
-  const history = useHistory();
+  // const [stripeToken, setStripeToken] = useState(null);
+  // const history = useHistory();
 
-  const onToken = token => {
-    setStripeToken(token);
-  };
+  // const onToken = token => {
+  //   setStripeToken(token);
+  // };
 
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await userRequest.post('/checkout/payment', {
-          tokenId: stripeToken.id,
-          amount: cart.total * 100
-        });
-        history.push('/success', {data: res.data});
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    stripeToken && cart.total >= 1 && makeRequest();
-  }, [stripeToken, cart.total, history]);
+  // useEffect(() => {
+  //   const makeRequest = async () => {
+  //     try {
+  //       const res = await userRequest.post('/checkout/payment', {
+  //         tokenId: stripeToken.id,
+  //         amount: cart.total * 100
+  //       });
+  //       history.push('/success', {data: res.data});
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   stripeToken && cart.total >= 1 && makeRequest();
+  // }, [stripeToken, cart.total, history]);
   return (
     <Container>
       <Navbar />
@@ -185,19 +185,19 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products?.map(product => (
-              <Product>
+              <Product key={product.id}>
                 <ProductDetail>
-                  <Image src={product.img} />
+                  <Image src={product.image} />
                   <Details>
                     <ProductName>
                       <b>Product:</b> {product.title}
                     </ProductName>
                     <ProductId>
-                      <b>ID:</b> {product._id}
+                      <b>ID:</b> {product.id}
                     </ProductId>
-                    <ProductColor color={product.color} />
+                    <ProductColor color={product?.color} />
                     <ProductSize>
-                      <b>Size:</b> {product.size}
+                      <b>Size:</b> {product?.size}
                     </ProductSize>
                   </Details>
                 </ProductDetail>
@@ -231,17 +231,18 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <StripeCheckout
+            {/* <StripeCheckout
               name="Wojak."
               billingAddress
               shippingAddress
               description={` Your total is $${cart.total}`}
               amount={cart.total * 100}
+              // token={onToken}
               token={onToken}
               stripeKey={KEY}
             >
               <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
+            </StripeCheckout> */}
           </Summary>
         </Bottom>
       </Wrapper>
